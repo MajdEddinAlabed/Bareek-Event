@@ -45,10 +45,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            const DrawerItems('Home', icon: Icon(Icons.home),),
-            const DrawerItems('Organizations', icon: Icon(Icons.groups_outlined),),
-            const DrawerItems('My organizations', icon: Icon(Icons.group_work_outlined),),
-            const DrawerItems('Settings', icon: Icon(Icons.settings),),
+            const DrawerItems(
+              'Home',
+              icon: Icon(Icons.home),
+            ),
+            const DrawerItems(
+              'Organizations',
+              icon: Icon(Icons.groups_outlined),
+            ),
+            const DrawerItems(
+              'My organizations',
+              icon: Icon(Icons.group_work_outlined),
+            ),
+            const DrawerItems(
+              'Settings',
+              icon: Icon(Icons.settings),
+            ),
           ],
         ),
       ),
@@ -56,10 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SfCalendar(
-          view: CalendarView.day,
-          firstDayOfWeek: 6,
-          dataSource: MeetingDataSource(getAppointment()),
-        ),
+        view: CalendarView.day,
+        showCurrentTimeIndicator: true,
+        showDatePickerButton: true,
+        allowViewNavigation: true,
+        allowedViews: [
+          CalendarView.day,
+          CalendarView.week,
+          CalendarView.month,
+          CalendarView.schedule,
+        ],
+        firstDayOfWeek: 6,
+        dataSource: MeetingDataSource(getAppointment()),
+      ),
     );
   }
 }
@@ -96,8 +117,18 @@ List<Appointment> getAppointment() {
     Appointment(
       startTime: startTime,
       endTime: endTime,
-      subject: 'Meeting',
+      subject: 'Event',
       color: Colors.purple,
+      recurrenceRule: 'FREQ=DAILY;COUNT=10',
+    ),
+  );
+  meetings.add(
+    Appointment(
+      startTime: startTime,
+      endTime: endTime,
+      subject: 'Event 2',
+      
+      color: Color.fromARGB(255, 201, 8, 98),
       recurrenceRule: 'FREQ=DAILY;COUNT=10',
     ),
   );
