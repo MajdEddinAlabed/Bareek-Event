@@ -79,7 +79,7 @@ List<Appointment> getAppointment() {
       startTime: startTime,
       endTime: endTime,
       subject: 'Event 2',
-      color: Color.fromARGB(255, 201, 8, 98),
+      color: const Color.fromARGB(255, 201, 8, 98),
       recurrenceRule: 'FREQ=DAILY;COUNT=10',
     ),
   );

@@ -17,16 +17,21 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      // ignore: prefer_const_constructors
       body: Center(
         child: Column(
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
+                Navigator.of(context).pushNamed('/event_details_screen');
+              },
+              child: const Text('Event Details Screen'),
+            ),
+            ElevatedButton(
+              onPressed: () {
                 Navigator.of(context).pushNamed('/event_list');
               },
               child: const Text('Event List Screen'),
-            )
+            ),
           ],
         ),
       ),
