@@ -6,11 +6,11 @@ class DrawerClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Drawer(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(30),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(30),
+          ),
         ),
-      ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,23 +37,24 @@ class DrawerClass extends StatelessWidget {
               bottom: 24,
             ),
             child: Column(
-              children: [
+              children: const [
                 CircleAvatar(
                   radius: 52,
-                  child: Image.asset(
-                    "assets/images/2.jpg",
-                    fit: BoxFit.fill,
-                  ),
+                  child: Text('M'),
+                  // Image.asset(
+                  //   "assets/images/2.jpg",
+                  //   fit: BoxFit.fill,
+                  // ),
                 ),
-                const SizedBox(height: 12),
-                const Text(
+                SizedBox(height: 12),
+                Text(
                   'Majd Eddin',
                   style: TextStyle(
                     fontSize: 28,
                     color: Colors.white,
                   ),
                 ),
-                const Text(
+                Text(
                   'majdeddin6@gmail.com',
                   style: TextStyle(
                     fontSize: 16,

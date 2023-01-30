@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'pages/event_list.dart';
 import 'pages/home_page.dart';
 
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -15,9 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/':(context) => const MyHomePage(title: 'Home Page'),
-        '/event_list':(context) => const EventList(title: 'Events List'),
-        '/event_details_screen':(context) => const EventDetailsScreen(title: 'Event Details'),
+        '/': (context) => const MyHomePage(title: 'Home Page'),
+        '/event_list': (context) => const EventList(title: 'Events List'),
+        '/event_details_screen': (context) =>
+            const EventDetailsScreen(title: 'Event Details'),
       },
       debugShowCheckedModeBanner: false,
       title: 'Bareek Event',
