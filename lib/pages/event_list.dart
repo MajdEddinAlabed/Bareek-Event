@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class EventList extends StatefulWidget {
+  
   const EventList({super.key, required this.title});
   final String title;
 

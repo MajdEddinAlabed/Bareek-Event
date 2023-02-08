@@ -1,6 +1,5 @@
 import 'package:event_app/pages/event_details_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'pages/event_list.dart';
 import 'pages/home_page.dart';
 
@@ -16,8 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const MyHomePage(title: 'Home Page'),
         '/event_list': (context) => const EventList(title: 'Events List'),
-        '/event_details_screen': (context) =>
-            const EventDetailsScreen(title: 'Event Details'),
+        '/event_details_screen': (context) => const EventDetailsScreen(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Bareek Event',
