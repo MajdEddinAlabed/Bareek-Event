@@ -1,3 +1,4 @@
+import 'package:event_app/Pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class DrawerClass extends StatelessWidget {
@@ -91,7 +92,14 @@ class DrawerClass extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {},
-          )
+          ),
+          ListTile(
+            leading: const Icon(Icons.group_work_outlined),
+            title: const Text('Majd Pages'),
+            onTap: () {
+              Navigator.pushNamed(context, MyHomePage.name);
+            },
+          ),
         ],
       );
 }

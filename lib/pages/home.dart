@@ -6,7 +6,8 @@ import '../utils/drawer.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
-  static String name = '/home_screen';
+  //static String name = '/home_screen';
+  static String name = '/';
 
   @override
   Widget build(BuildContext context) {
