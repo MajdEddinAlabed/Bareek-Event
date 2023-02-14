@@ -15,6 +15,7 @@ void main() {
   runApp(const MyApp());
 }
 
+// mjjd sho bdk?
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

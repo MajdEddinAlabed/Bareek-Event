@@ -4,5 +4,6 @@
         "datepicker",
         "Schyler",
         "syncfusion"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
