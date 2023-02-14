@@ -15,11 +15,6 @@ void main() {
   runApp(const MyApp());
 }
 
-// mjjd sho bdk?
-//smd noob
-//brr
-// test2
-//nosto is gayyyyyy 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
