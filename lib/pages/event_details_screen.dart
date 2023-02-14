@@ -1,8 +1,8 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class EventDetailsScreen extends StatefulWidget {
+  static String name = '/event_details_screen';
   const EventDetailsScreen({Key? key}) : super(key: key);
   @override
   EventDetailPageState createState() => EventDetailPageState();
@@ -74,45 +74,49 @@ class EventDetailPageState extends State<EventDetailsScreen>
     headerImageSize = MediaQuery.of(context).size.height / 2.5;
     return ScaleTransition(
       scale: scale,
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
-        child: Scaffold(
-          body: Stack(
-            children: [
-              SingleChildScrollView(
-                controller: scrollController,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildHeaderImage(),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const SizedBox(height: 16),
-                          buildEventTitle(),
-                          const SizedBox(height: 16),
-                          buildEventDate(),
-                          const SizedBox(height: 24),
-                          buildAboutEvent(),
-                          const SizedBox(height: 24),
-                          buildOrganizeInfo(),
-                          const SizedBox(height: 24),
-                          buildEventLocation(),
-                          const SizedBox(height: 124),
-                        ],
-                      ),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildHeaderImage(),
+                  Container(
+                    // decoration: const BoxDecoration(
+                    //   gradient: LinearGradient(
+                    //     colors: [Color.fromARGB(20, 33, 149, 243), Color.fromARGB(20, 255, 255, 255)],
+                    //     begin: Alignment.topCenter,
+                    //     end: Alignment.bottomCenter,
+                    //   ),
+                    // ),
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const SizedBox(height: 16),
+                        buildEventTitle(),
+                        const SizedBox(height: 16),
+                        buildEventDate(),
+                        const SizedBox(height: 24),
+                        buildAboutEvent(),
+                        const SizedBox(height: 24),
+                        buildOrganizeInfo(),
+                        // const SizedBox(height: 24),
+                        // buildEventLocation(),
+                        const SizedBox(height: 124),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: buildEnrollButton(),
-              ),
-            ],
-          ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: buildEnrollButton(),
+            ),
+          ],
         ),
       ),
     );
@@ -157,17 +161,6 @@ class EventDetailPageState extends State<EventDetailsScreen>
     );
   }
 
-  Widget buildEventLocation() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Image.asset(
-        'assets/map.jpg',
-        height: MediaQuery.of(context).size.height / 3,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
   Widget buildEventTitle() {
     return Row(
       children: const <Widget>[
@@ -179,21 +172,21 @@ class EventDetailPageState extends State<EventDetailsScreen>
             fontWeight: FontWeight.bold,
           ),
         ),
-        //const Spacer(),
-        // Column(
-        //   children: const [
-        //     Text(
-        //       "Hight Academy",
-        //       style: TextStyle(
-        //         height: 2.399,
-        //         color: Colors.grey,
-        //         fontSize: 14,
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ],
     );
+    //const Spacer(),
+    // Column(
+    //   children: const [
+    //     Text(
+    //       "Hight Academy",
+    //       style: TextStyle(
+    //         height: 2.399,
+    //         color: Colors.grey,
+    //         fontSize: 14,
+    //       ),
+    //     ),
+    //   ],
+    // ),
   }
 
   Widget buildEventDate() {
@@ -225,15 +218,36 @@ class EventDetailPageState extends State<EventDetailsScreen>
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-            Text('Tuesday',
+          children: <Widget>[
+            const Text('Tuesday',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
-            SizedBox(height: 4),
-            Text("10:00 - 12:00 PM",
-                style: TextStyle(color: Colors.grey, fontSize: 14)),
+            const SizedBox(height: 4),
+            const Text(
+              "10:00 - 12:00 PM",
+              style: TextStyle(color: Colors.grey, fontSize: 14),
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            Row(
+              children: const [
+                Icon(
+                  color: Colors.blue,
+                  Icons.location_on_outlined,
+                  size: 15,
+                ),
+                Text(
+                  "23 Rehab ST",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
         const Spacer(),
@@ -255,6 +269,7 @@ class EventDetailPageState extends State<EventDetailsScreen>
                 ),
               ),
               DropdownButton2(
+                buttonWidth: 73,
                 dropdownDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -281,7 +296,6 @@ class EventDetailPageState extends State<EventDetailsScreen>
                     },
                   );
                 },
-                buttonWidth: 73,
               )
               // DropdownButton(
               //   borderRadius: BorderRadius.circular(12),
@@ -384,6 +398,44 @@ class EventDetailPageState extends State<EventDetailsScreen>
       ],
     );
   }
+
+  // Widget buildEventLocation() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: <Widget>[
+  //       const Text(
+  //         'Address',
+  //         style: TextStyle(
+  //           fontSize: 25,
+  //           fontWeight: FontWeight.bold,
+  //         ),
+  //       ),
+  //       const SizedBox(
+  //         height: 12,
+  //       ),
+  //       InkWell(
+  //         child: Row(
+  //           children: const [
+  //             Icon(
+  //               color: Colors.blue,
+  //               Icons.location_on_outlined,
+  //             ),
+  //             Text(
+  //               "23 Rehab ST",
+  //               style: TextStyle(
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //             Icon(
+  //               Icons.double_arrow_rounded,
+  //               size: 15,
+  //             ),
+  //           ],
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
 
   Widget buildEnrollButton() {
     return Container(

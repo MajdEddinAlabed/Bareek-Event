@@ -1,4 +1,3 @@
-import 'package:event_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class DrawerClass extends StatelessWidget {
@@ -39,23 +38,20 @@ class DrawerClass extends StatelessWidget {
             child: Column(
               children: const [
                 CircleAvatar(
-                  radius: 52,
-                  child: Text('M'),
-                  // Image.asset(
-                  //   "assets/images/2.jpg",
-                  //   fit: BoxFit.fill,
-                  // ),
+                  backgroundColor: Color.fromARGB(255, 153, 19, 230),
+                  radius: 32,
+                  child: Text('W'),
                 ),
                 SizedBox(height: 12),
                 Text(
-                  'Majd Eddin',
+                  'anyone',
                   style: TextStyle(
                     fontSize: 28,
                     color: Colors.white,
                   ),
                 ),
                 Text(
-                  'majdeddin6@gmail.com',
+                  'anyone513@gmail.com',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.white,
@@ -74,24 +70,22 @@ class DrawerClass extends StatelessWidget {
             leading: const Icon(Icons.home),
             title: const Text('Home'),
             onTap: () {
-              Navigator.pop(context);
-
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const MyHomePage(
-                  title: 'Home Page',
-                ),
-              ));
+              Navigator.pushNamed(context, '/home_screen');
             },
           ),
           ListTile(
             leading: const Icon(Icons.groups_outlined),
             title: const Text('Organizations'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/org_screen');
+            },
           ),
           ListTile(
             leading: const Icon(Icons.group_work_outlined),
             title: const Text('My organizations'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/myorg_screen');
+            },
           ),
           ListTile(
             leading: const Icon(Icons.settings),
