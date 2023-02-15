@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         NewEventScreen.name: (context) =>
             const NewEventScreen(title: 'Create New Event'),
         CreateEventPage.name: (context) => CreateEventPage(),
-        MyHomePage.name:(context) => MyHomePage(title: "Majd"),
+        MyHomePage.name: (context) => MyHomePage(title: "Majd"),
       },
     );
   }

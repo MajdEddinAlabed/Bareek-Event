@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_string_escapes
+// ignore_for_file: prefer_const_constructors, unnecessary_string_escapes, library_private_types_in_public_api
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -6,14 +6,14 @@ import '../utils/drawer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
-  static String name = '/home_screen';
+  static String name = '/';
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   bool _isFABVisible = false;
 
   @override
