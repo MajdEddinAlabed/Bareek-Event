@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_element
+import 'package:event_app/Pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:event_app/Pages/reg_screen.dart';
 import 'package:event_app/Pages/login_screen.dart';
@@ -17,8 +18,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,8 +29,8 @@ class MyApp extends StatelessWidget {
               secondary: Color.fromARGB(255, 102, 45, 139))),
       initialRoute: '/',
       routes: {
-        HomeScreen.name: (context) => HomeScreen(),
-        LoginScreen.name: (context) => const LoginScreen(),
+        //HomeScreen.name: (context) => HomeScreen(),
+        //LoginScreen.name: (context) => const LoginScreen(),
         Home.name: (context) => Home(),
         Organization.name: (context) => Organization(),
         myorg.name: (context) => myorg(),
@@ -41,6 +40,7 @@ class MyApp extends StatelessWidget {
         NewEventScreen.name: (context) =>
             const NewEventScreen(title: 'Create New Event'),
         CreateEventPage.name: (context) => CreateEventPage(),
+        MyHomePage.name:(context) => MyHomePage(title: "Majd"),
       },
     );
   }
