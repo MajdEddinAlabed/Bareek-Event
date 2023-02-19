@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class MakeOrg extends StatelessWidget {
   const MakeOrg({super.key});
-  static String name = '/makeorg_screen';
+  static String name = '/makeOrg_screen';
 
   @override
   Widget build(BuildContext context) {

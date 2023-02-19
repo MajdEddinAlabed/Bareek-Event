@@ -1,9 +1,11 @@
 {
     "cSpell.words": [
+        "ARGB",
         "Cupertino",
         "datepicker",
         "Schyler",
-        "syncfusion"
+        "syncfusion",
+        "unfocus"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }

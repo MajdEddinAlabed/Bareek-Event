@@ -1,3 +1,4 @@
+import 'package:event_app/Pages/create_event_screen.dart';
 import 'package:event_app/utils/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -29,17 +30,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/new_event_screen');
+                Navigator.of(context).pushNamed(CreateEventScreen.name);
               },
-              child: const Text('New Event Screen'),
+              child: const Text('Create Event Screen'),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/testFromGhatGPT');
-              },
-              child: const Text('testFromGhatGPT'),
-            ),
-
           ],
         ),
       ),

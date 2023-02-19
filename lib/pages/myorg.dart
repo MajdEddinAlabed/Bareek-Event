@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 final List<String> items = List<String>.generate(10000, (i) => '$i');
 
-class myorg extends StatelessWidget {
-  const myorg({super.key});
-  static String name = '/myorg_screen';
+class myOrg extends StatelessWidget {
+  const myOrg({super.key});
+  static String name = '/myOrg_screen';
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class myorg extends StatelessWidget {
               ),
               trailing: const Icon(Icons.info_outline),
               onTap: () {
-                Navigator.pushNamed(context, '/makeorg_screen');
+                Navigator.pushNamed(context, '/makeOrg_screen');
               },
             );
           },

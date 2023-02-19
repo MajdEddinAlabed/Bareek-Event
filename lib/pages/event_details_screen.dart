@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
 class EventDetailsScreen extends StatefulWidget {
   static String name = '/event_details_screen';
@@ -10,14 +9,8 @@ class EventDetailsScreen extends StatefulWidget {
 
 class EventDetailPageState extends State<EventDetailsScreen>
     with TickerProviderStateMixin {
-  late AnimationController controller;
-  late AnimationController bodyScrollAnimationController;
-  late ScrollController scrollController;
-  late Animation<double> scale;
-  late Animation<double> appBarSlide;
-  double headerImageSize = 0;
-  bool isFavorite = false;
   String dropDownValue = "don't";
+  String pageTitle = "Event Details";
   var items = [
     "don't",
     'on time',
@@ -28,133 +21,46 @@ class EventDetailPageState extends State<EventDetailsScreen>
   ];
 
   @override
-  void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    bodyScrollAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    scrollController = ScrollController()
-      ..addListener(() {
-        if (scrollController.offset >= headerImageSize / 2) {
-          if (!bodyScrollAnimationController.isCompleted) {
-            bodyScrollAnimationController.forward();
-          }
-        } else {
-          if (bodyScrollAnimationController.isCompleted) {
-            bodyScrollAnimationController.reverse();
-          }
-        }
-      });
-
-    appBarSlide = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      curve: Curves.fastOutSlowIn,
-      parent: bodyScrollAnimationController,
-    ));
-
-    scale = Tween(begin: 1.0, end: 0.5).animate(CurvedAnimation(
-      curve: Curves.linear,
-      parent: controller,
-    ));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    bodyScrollAnimationController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    headerImageSize = MediaQuery.of(context).size.height / 2.5;
-    return ScaleTransition(
-      scale: scale,
-      child: Scaffold(
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              controller: scrollController,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildHeaderImage(),
-                  Container(
-                    // decoration: const BoxDecoration(
-                    //   gradient: LinearGradient(
-                    //     colors: [Color.fromARGB(20, 33, 149, 243), Color.fromARGB(20, 255, 255, 255)],
-                    //     begin: Alignment.topCenter,
-                    //     end: Alignment.bottomCenter,
-                    //   ),
-                    // ),
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(height: 16),
-                        buildEventTitle(),
-                        const SizedBox(height: 16),
-                        buildEventDate(),
-                        const SizedBox(height: 24),
-                        buildAboutEvent(),
-                        const SizedBox(height: 24),
-                        buildOrganizeInfo(),
-                        // const SizedBox(height: 24),
-                        // buildEventLocation(),
-                        const SizedBox(height: 124),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: buildEnrollButton(),
-            ),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(pageTitle),
       ),
-    );
-  }
-
-  Widget buildHeaderImage() {
-    double maxHeight = MediaQuery.of(context).size.height;
-    double minimumScale = 0.8;
-    return GestureDetector(
-      onVerticalDragUpdate: (detail) {
-        controller.value += detail.primaryDelta! / maxHeight * 2;
-      },
-      onVerticalDragEnd: (detail) {
-        if (scale.value > minimumScale) {
-          controller.reverse();
-        } else {
-          Navigator.of(context).pop();
-        }
-      },
-      child: Stack(
-        children: <Widget>[
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 0,
-            child: Hero(
-              tag: Image.asset(
-                "assets/images/2.jpg",
-                fit: BoxFit.cover,
-              ),
-              child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(32)),
-                child: Image.asset(
-                  "assets/images/2.jpg",
-                  fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  // decoration: const BoxDecoration(
+                  //   gradient: LinearGradient(
+                  //     colors: [Color.fromARGB(20, 33, 149, 243), Color.fromARGB(20, 255, 255, 255)],
+                  //     begin: Alignment.topCenter,
+                  //     end: Alignment.bottomCenter,
+                  //   ),
+                  // ),
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      buildEventTitle(),
+                      const SizedBox(height: 16),
+                      buildEventDate(),
+                      const SizedBox(height: 24),
+                      buildAboutEvent(),
+                      const SizedBox(height: 24),
+                      buildOrganizeInfo(),
+                      const SizedBox(height: 124),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: buildEnrollButton(),
           ),
         ],
       ),
@@ -174,19 +80,6 @@ class EventDetailPageState extends State<EventDetailsScreen>
         ),
       ],
     );
-    //const Spacer(),
-    // Column(
-    //   children: const [
-    //     Text(
-    //       "Hight Academy",
-    //       style: TextStyle(
-    //         height: 2.399,
-    //         color: Colors.grey,
-    //         fontSize: 14,
-    //       ),
-    //     ),
-    //   ],
-    // ),
   }
 
   Widget buildEventDate() {
@@ -232,97 +125,11 @@ class EventDetailPageState extends State<EventDetailsScreen>
             const SizedBox(
               height: 4,
             ),
-            Row(
-              children: const [
-                Icon(
-                  color: Colors.blue,
-                  Icons.location_on_outlined,
-                  size: 15,
-                ),
-                Text(
-                  "23 Rehab ST",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
+            buildEventLocation(),
           ],
         ),
         const Spacer(),
-        Container(
-          padding: const EdgeInsets.all(2),
-          decoration: const ShapeDecoration(
-            shape: StadiumBorder(),
-            color: Color.fromRGBO(240, 234, 248, 1),
-          ),
-          child: Row(
-            children: <Widget>[
-              const SizedBox(width: 8),
-              const Text(
-                "Add Reminder  ",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                ),
-              ),
-              DropdownButton2(
-                buttonWidth: 73,
-                dropdownDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                dropdownElevation: 3,
-                value: dropDownValue,
-                items: items.map(
-                  (String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(
-                        items,
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12,
-                        ),
-                      ),
-                    );
-                  },
-                ).toList(),
-                onChanged: (String? newValue) {
-                  setState(
-                    () {
-                      dropDownValue = newValue!;
-                    },
-                  );
-                },
-              )
-              // DropdownButton(
-              //   borderRadius: BorderRadius.circular(12),
-              //   value: dropDownValue,
-              //   elevation: 3,
-              //   alignment: const AlignmentDirectional(1, 5),
-              // items: items.map((String items) {
-              //   return DropdownMenuItem(
-              //     value: items,
-              //     child: Text(
-              //       items,
-              //       style: const TextStyle(
-              //         color: Color.fromRGBO(255, 158, 107, 1),
-              //         fontSize: 12,
-              //       ),
-              //     ),
-              //   );
-              // }).toList(),
-              // onChanged: (String? newValue) {
-              //   setState(() {
-              //     dropDownValue = newValue!;
-              //   });
-              // },
-              // ),
-            ],
-          ),
-        ),
+        buildReminder(),
       ],
     );
   }
@@ -399,43 +206,24 @@ class EventDetailPageState extends State<EventDetailsScreen>
     );
   }
 
-  // Widget buildEventLocation() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: <Widget>[
-  //       const Text(
-  //         'Address',
-  //         style: TextStyle(
-  //           fontSize: 25,
-  //           fontWeight: FontWeight.bold,
-  //         ),
-  //       ),
-  //       const SizedBox(
-  //         height: 12,
-  //       ),
-  //       InkWell(
-  //         child: Row(
-  //           children: const [
-  //             Icon(
-  //               color: Colors.blue,
-  //               Icons.location_on_outlined,
-  //             ),
-  //             Text(
-  //               "23 Rehab ST",
-  //               style: TextStyle(
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //             Icon(
-  //               Icons.double_arrow_rounded,
-  //               size: 15,
-  //             ),
-  //           ],
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
+  Widget buildEventLocation() {
+    return Row(
+      children: const [
+        Icon(
+          color: Colors.blue,
+          Icons.location_on_outlined,
+          size: 15,
+        ),
+        Text(
+          "23 Rehab ST",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget buildEnrollButton() {
     return Container(
@@ -460,6 +248,84 @@ class EventDetailPageState extends State<EventDetailsScreen>
             fontWeight: FontWeight.normal,
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildReminder() {
+    return Container(
+      padding: const EdgeInsets.all(2),
+      decoration: const ShapeDecoration(
+        shape: StadiumBorder(),
+        color: Color.fromRGBO(240, 234, 248, 1),
+      ),
+      child: Row(
+        children: <Widget>[
+          const SizedBox(width: 8),
+          const Text(
+            "Add Reminder ",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            ),
+          ),
+          // DropdownButton2(
+          //   buttonWidth: 73,
+          //   dropdownDecoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(10),
+          //   ),
+          //   dropdownElevation: 3,
+          //   value: dropDownValue,
+          //   items: items.map(
+          //     (String items) {
+          //       return DropdownMenuItem(
+          //         value: items,
+          //         child: Text(
+          //           items,
+          //           style: const TextStyle(
+          //             color: Colors.blue,
+          //             fontSize: 12,
+          //           ),
+          //         ),
+          //       );
+          //     },
+          //   ).toList(),
+          //   onChanged: (String? newValue) {
+          //     setState(
+          //       () {
+          //         dropDownValue = newValue!;
+          //       },
+          //     );
+          //   },
+          // )
+          DropdownButton(
+            underline: const InputDecorator(
+              decoration: InputDecoration(border: InputBorder.none),
+            ),
+            borderRadius: BorderRadius.circular(12),
+            value: dropDownValue,
+            alignment: const AlignmentDirectional(0.5, 1),
+            items: items.map((String items) {
+              return DropdownMenuItem(
+                alignment: Alignment.center,
+                value: items,
+                child: Text(
+                  items,
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    fontSize: 12,
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                dropDownValue = newValue!;
+              });
+            },
+          ),
+        ],
       ),
     );
   }
