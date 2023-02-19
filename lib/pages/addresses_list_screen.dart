@@ -25,7 +25,7 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
               if (value == 'addAddress') {
                 addAddress();
               } else if (value == 'removeAddress') {
-                // Do something when option 2 is selected.
+                // Do something when removeAddress is selected.
               }
             },
             itemBuilder: (BuildContext context) => [
