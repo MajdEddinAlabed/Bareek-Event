@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_escapes, library_private_types_in_public_api
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import '../utils/drawer.dart';
 
 class Home extends StatefulWidget {
@@ -13,112 +12,116 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isFABVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      key: _scaffoldkey,
+      key: _scaffoldKey,
       drawer: DrawerClass(),
       body: GestureDetector(
-          onHorizontalDragUpdate: (details) {
-            // Show FAB when user swipes up and hide FAB when user swipes down
-            setState(() {
-              _isFABVisible = details.delta.dy > 0;
-            });
-          },
-          child: Stack(
-            children: [
-              ListView(
-                children: [
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CarouselSlider(
-                            options: CarouselOptions(
-                              height: MediaQuery.of(context).size.height,
-                              viewportFraction: 1,
-                            ),
-                            items: [
-                              Card(
-                                elevation: 10,
-                                color: Colors.black,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: imageSliders,
-                                  ),
+        onHorizontalDragUpdate: (details) {
+          // Show FAB when user swipes up and hide FAB when user swipes down
+          setState(() {
+            _isFABVisible = details.delta.dy > 0;
+          });
+        },
+        child: Stack(
+          children: [
+            ListView(
+              children: [
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CarouselSlider(
+                          options: CarouselOptions(
+                            height: MediaQuery.of(context).size.height,
+                            viewportFraction: 1,
+                          ),
+                          items: [
+                            Card(
+                              elevation: 10,
+                              color: Colors.black,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: imageSliders,
                                 ),
                               ),
-                            ]),
-                      ]),
-                ],
-              ),
-              Positioned(
-                bottom: 5.0,
-                right: 16.0,
-                child: AnimatedOpacity(
-                  opacity: _isFABVisible ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 200),
-                  child: FloatingActionButton(
-                    onPressed: () => _scaffoldkey.currentState!.openDrawer(),
-                    child: Icon(Icons.add),
-                  ),
+                            ),
+                          ]),
+                    ]),
+              ],
+            ),
+            Positioned(
+              bottom: 5.0,
+              right: 16.0,
+              child: AnimatedOpacity(
+                opacity: _isFABVisible ? 1.0 : 0.0,
+                duration: Duration(milliseconds: 200),
+                child: FloatingActionButton(
+                  onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+                  child: Icon(Icons.add),
                 ),
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
 final List<Widget> imageSliders = imgList
-    .map((item) => Container(
-          height: 220,
-          width: double.infinity,
-          color: Colors.black,
-          margin: EdgeInsets.all(5.0),
-          child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Stack(
-                children: <Widget>[
-                  Image.network(
-                    item,
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                    height: double.infinity,
-                  ),
-                  Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    right: 0.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: const [
-                            Color.fromARGB(0, 0, 0, 0),
-                            Color.fromARGB(0, 0, 0, 0)
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                        ),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 20.0),
-                      child: Text(
-                        'Event ${imgList.indexOf(item) + 1} ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+    .map(
+      (item) => Container(
+        height: 220,
+        width: double.infinity,
+        color: Colors.black,
+        margin: EdgeInsets.all(5.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          child: Stack(
+            children: <Widget>[
+              Image.network(
+                item,
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+              Positioned(
+                bottom: 0.0,
+                left: 0.0,
+                right: 0.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: const [
+                        Color.fromARGB(0, 0, 0, 0),
+                        Color.fromARGB(0, 0, 0, 0)
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
                   ),
-                ],
-              )),
-        ))
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  child: Text(
+                    'Event ${imgList.indexOf(item) + 1} ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    )
     .toList();
 
 final List<String> imgList = [

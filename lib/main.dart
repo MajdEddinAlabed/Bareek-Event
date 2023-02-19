@@ -1,15 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_element, unused_import
-import 'package:event_app/Pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:event_app/Pages/reg_screen.dart';
-import 'package:event_app/Pages/login_screen.dart';
-import 'package:event_app/Pages/welcome_screen.dart';
-import 'package:event_app/Pages/create_event_screen.dart';
-import 'package:event_app/Pages/home.dart';
-import 'package:event_app/Pages/makeOrg.dart';
-import 'package:event_app/Pages/myOrg.dart';
-import 'package:event_app/Pages/organization.dart';
-import 'package:event_app/Pages/event_details_screen.dart';
+import 'Pages/home_page.dart';
+import 'Pages/reg_screen.dart';
+import 'Pages/login_screen.dart';
+import 'Pages/welcome_screen.dart';
+import 'Pages/create_event_screen.dart';
+import 'Pages/home.dart';
+import 'Pages/makeOrg.dart';
+import 'Pages/myOrg.dart';
+import 'Pages/organization.dart';
+import 'Pages/event_details_screen.dart';
+import 'Pages/addresses_list_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         RegScreen.name: (context) => const RegScreen(),
         EventDetailsScreen.name: (context) => const EventDetailsScreen(),
         CreateEventScreen.name: (context) => CreateEventScreen(),
+        AddressesListScreen.name: (context) => AddressesListScreen(),
         MyHomePage.name: (context) => MyHomePage(title: "Majd"),
       },
     );

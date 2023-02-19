@@ -71,7 +71,7 @@ class DrawerClass extends StatelessWidget {
             leading: const Icon(Icons.home),
             title: const Text('Home'),
             onTap: () {
-              Navigator.pushNamed(context, '/home_screen');
+              Navigator.pushNamed(context, '/');
             },
           ),
           ListTile(
