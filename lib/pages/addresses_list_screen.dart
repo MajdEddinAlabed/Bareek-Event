@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class AddressesListScreen extends StatefulWidget {
@@ -10,8 +9,10 @@ class AddressesListScreen extends StatefulWidget {
 }
 
 class _AddressesListScreenState extends State<AddressesListScreen> {
-  String pageTitle = 'Your Addresses';
-  late int count;
+  String pageTitle = 'My Addresses';
+  int count = 3;
+  bool showCheckboxes = false;
+  List<bool> checked = List.filled(3, false);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,9 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
               if (value == 'addAddress') {
                 addAddress();
               } else if (value == 'removeAddress') {
-                // Do something when removeAddress is selected.
+                setState(() {
+                  showCheckboxes = true;
+                });
               }
             },
             itemBuilder: (BuildContext context) => [
@@ -41,72 +44,31 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
           ),
         ],
       ),
+      floatingActionButton: showCheckboxes
+          ? FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  for (int i = checked.length - 1; i >= 0; i--) {
+                    if (checked[i]) {
+                      count--;
+                      checked.removeAt(i);
+                    }
+                  }
+                  showCheckboxes = false;
+                });
+              },
+              child: const Icon(Icons.delete),
+            )
+          : null,
       body: Stack(
         children: [
           addressesCard(),
         ],
       ),
-      // ListView(
-      //   children: <Widget>[
-      //     ListTile(
-      //       title: const Text('Address 1'),
-      //       subtitle: Column(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: const <Widget>[
-      //           Text('Country:'),
-      //           Text('City:'),
-      //           Text('Address:'),
-      //           Text('Location:'),
-      //           Text('Additional Info:'),
-      //         ],
-      //       ),
-      //     ),
-      //     ListTile(
-      //       title: const Text('Address 2'),
-      //       subtitle: Column(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: const <Widget>[
-      //           Text('Country:'),
-      //           Text('City:'),
-      //           Text('Address:'),
-      //           Text('Location:'),
-      //           Text('Additional Info:'),
-      //         ],
-      //       ),
-      //     ),
-      //     ListTile(
-      //       title: const Text('Address 3'),
-      //       subtitle: Column(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: const <Widget>[
-      //           Text('Country:'),
-      //           Text('City:'),
-      //           Text('Address:'),
-      //           Text('Location:'),
-      //           Text('Additional Info:'),
-      //         ],
-      //       ),
-      //     ),
-      //     Container(
-      //       height: 220,
-      //       child: const Card(
-      //         color: Colors.black,
-      //         child: Padding(
-      //           padding: EdgeInsets.all(16.0),
-      //           child: Text(
-      //             'Text inside the card',
-      //             style: TextStyle(fontSize: 24.0, color: Colors.white),
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 
   Widget addressesCard() {
-    count = 3;
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int index) {
@@ -121,12 +83,26 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
                   style: const TextStyle(color: Colors.white),
                   child: Column(
                     children: [
-                      Text(
-                        'Card $index',
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Card $index',
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (showCheckboxes)
+                            Checkbox(
+                              value: checked[index],
+                              onChanged: (value) {
+                                setState(() {
+                                  checked[index] = value!;
+                                });
+                              },
+                            ),
+                        ],
                       ),
                       const SizedBox(height: 8.0),
                       const Text(
@@ -151,7 +127,8 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
 
   void addAddress() {
     setState(() {
-      count + 1;
+      count++;
+      checked.add(false);
     });
   }
 }
