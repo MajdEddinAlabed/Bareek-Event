@@ -18,56 +18,34 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      extendBody: true,
       key: _scaffoldKey,
       drawer: DrawerClass(),
-      body: GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          // Show FAB when user swipes up and hide FAB when user swipes down
-          setState(() {
-            _isFABVisible = details.delta.dy > 0;
-          });
-        },
-        child: Stack(
-          children: [
-            ListView(
-              children: [
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CarouselSlider(
-                          options: CarouselOptions(
-                            height: MediaQuery.of(context).size.height,
-                            viewportFraction: 1,
-                          ),
-                          items: [
-                            Card(
-                              elevation: 10,
-                              color: Colors.black,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: imageSliders,
-                                ),
-                              ),
-                            ),
-                          ]),
-                    ]),
-              ],
-            ),
-            Positioned(
-              bottom: 5.0,
-              right: 16.0,
-              child: AnimatedOpacity(
-                opacity: _isFABVisible ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 200),
-                child: FloatingActionButton(
-                  onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-                  child: Icon(Icons.add),
+      body: ListView(
+        children: [
+          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            CarouselSlider(
+                options: CarouselOptions(
+                  height: MediaQuery.of(context).size.height,
+                  viewportFraction: 1,
                 ),
-              ),
-            ),
-          ],
-        ),
+                items: [
+                  Card(
+                    elevation: 10,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: imageSliders,
+                      ),
+                    ),
+                  ),
+                ]),
+          ]),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.navigation),
       ),
     );
   }
@@ -78,10 +56,9 @@ final List<Widget> imageSliders = imgList
       (item) => Container(
         height: 220,
         width: double.infinity,
-        color: Colors.black,
         margin: EdgeInsets.all(5.0),
         child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
           child: Stack(
             children: <Widget>[
               Image.network(
@@ -95,26 +72,35 @@ final List<Widget> imageSliders = imgList
                 left: 0.0,
                 right: 0.0,
                 child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: const [
-                        Color.fromARGB(0, 0, 0, 0),
-                        Color.fromARGB(0, 0, 0, 0)
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                    ),
-                  ),
+                  decoration: BoxDecoration(),
                   padding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  child: Text(
-                    'Event ${imgList.indexOf(item) + 1} ',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: ListTile(
+                      title: Text(
+                        'Event ${imgList.indexOf(item) + 1} ',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 124, 224, 114)),
+                      ),
+                      subtitle: Text(
+                        'description talking here yes hello',
+                        style: TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 250, 250, 250)),
+                      ),
+                      trailing: CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.transparent,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.playlist_add,
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                          onPressed: () {},
+                        ),
+                      )),
                 ),
               ),
             ],

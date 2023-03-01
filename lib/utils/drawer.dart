@@ -85,7 +85,7 @@ class DrawerClass extends StatelessWidget {
             leading: const Icon(Icons.group_work_outlined),
             title: const Text('My organizations'),
             onTap: () {
-              Navigator.pushNamed(context, '/myorg_screen');
+              Navigator.pushNamed(context, '/myOrg_screen');
             },
           ),
           ListTile(
