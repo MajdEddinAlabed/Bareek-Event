@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _isFABVisible = false;
+  final bool _isFABVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,26 +21,34 @@ class _HomeState extends State<Home> {
       extendBody: true,
       key: _scaffoldKey,
       drawer: DrawerClass(),
-      body: ListView(
-        children: [
-          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            CarouselSlider(
-                options: CarouselOptions(
-                  height: MediaQuery.of(context).size.height,
-                  viewportFraction: 1,
-                ),
-                items: [
-                  Card(
-                    elevation: 10,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: imageSliders,
-                      ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return ListView(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: constraints.maxHeight - 40,
+                      viewportFraction: 1,
                     ),
+                    items: [
+                      Card(
+                        elevation: 10,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: imageSliders,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ]),
-          ]),
-        ],
+                ],
+              ),
+            ],
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _scaffoldKey.currentState?.openDrawer(),
@@ -72,34 +80,65 @@ final List<Widget> imageSliders = imgList
                 left: 0.0,
                 right: 0.0,
                 child: Container(
-                  decoration: BoxDecoration(),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: const [
+                      Color.fromARGB(167, 3, 0, 10),
+                      Color.fromARGB(104, 3, 0, 10),
+                      Color.fromARGB(66, 3, 0, 10),
+                      Color.fromARGB(0, 255, 255, 255),
+                    ],
+                  )),
                   padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
                   child: ListTile(
-                      title: Text(
-                        'Event ${imgList.indexOf(item) + 1} ',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 124, 224, 114)),
-                      ),
-                      subtitle: Text(
-                        'description talking here yes hello',
-                        style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 250, 250, 250)),
-                      ),
-                      trailing: CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Colors.transparent,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.playlist_add,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                          onPressed: () {},
+                      leading: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Organization ${imgList.indexOf(item) + 1} ',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color.fromARGB(255, 87, 117, 218)),
+                            ),
+                            Text(
+                              '24:00 - 24:00',
+                              style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 12,
+                                  color: Color.fromARGB(255, 250, 250, 250)),
+                            ),
+                          ],
                         ),
+                      ),
+                      title: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'Event ${imgList.indexOf(item) + 1} ',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color.fromARGB(255, 124, 224, 114)),
+                          ),
+                          Text(
+                            'description talking here yes hello',
+                            style: TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 250, 250, 250)),
+                          ),
+                        ],
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.playlist_add,
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                        onPressed: () {},
                       )),
                 ),
               ),
@@ -120,4 +159,5 @@ final List<String> imgList = [
   'https://media-cdn.tripadvisor.com/media/photo-s/03/9b/2f/5b/cairo.jpg',
   'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
   'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
+  'https://api.contentstack.io/v2/assets/575e4d1c0342dfd738264a1f/download?uid=bltada7771f270d08f6',
 ];
