@@ -1,5 +1,6 @@
 import 'package:event_app/Pages/addresses_list_screen.dart';
 import 'package:event_app/Pages/create_event_screen.dart';
+import 'package:event_app/pages/organization_screen.dart';
 import 'package:event_app/utils/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.of(context).pushNamed(AddressesListScreen.name);
               },
               child: const Text('Addresses List Screen'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(OrganizationScreen.name);
+              },
+              child: const Text('Organisation screen'),
             ),
           ],
         ),

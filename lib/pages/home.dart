@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_escapes, library_private_types_in_public_api
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../utils/drawer.dart';
@@ -34,11 +35,17 @@ class _HomeState extends State<Home> {
                       viewportFraction: 1,
                     ),
                     items: [
-                      Card(
-                        elevation: 10,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: imageSliders,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed('/event_details_screen');
+                        },
+                        child: Card(
+                          elevation: 10,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: imageSliders,
+                            ),
                           ),
                         ),
                       ),
@@ -94,52 +101,43 @@ final List<Widget> imageSliders = imgList
                   padding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
                   child: ListTile(
-                      leading: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Organization ${imgList.indexOf(item) + 1} ',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color.fromARGB(255, 87, 117, 218)),
-                            ),
-                            Text(
-                              '24:00 - 24:00',
-                              style: TextStyle(
-                                  overflow: TextOverflow.ellipsis,
-                                  fontSize: 12,
-                                  color: Color.fromARGB(255, 250, 250, 250)),
-                            ),
-                          ],
+                    leading: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Organization ${imgList.indexOf(item) + 1} ',
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Color.fromARGB(255, 87, 117, 218)),
                         ),
-                      ),
-                      title: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            'Event ${imgList.indexOf(item) + 1} ',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 124, 224, 114)),
-                          ),
-                          Text(
-                            'description talking here yes hello',
-                            style: TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                fontSize: 15,
-                                color: Color.fromARGB(255, 250, 250, 250)),
-                          ),
-                        ],
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(
-                          Icons.playlist_add,
-                          color: Colors.white,
-                          size: 40,
+                        Text(
+                          '24:00 - 24:00',
+                          style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 12,
+                              color: Color.fromARGB(255, 250, 250, 250)),
                         ),
-                        onPressed: () {},
-                      )),
+                      ],
+                    ),
+                    title: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Event ${imgList.indexOf(item) + 1} ',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 124, 224, 114)),
+                        ),
+                        Text(
+                          'description talking here yes hello',
+                          style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 15,
+                              color: Color.fromARGB(255, 250, 250, 250)),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],

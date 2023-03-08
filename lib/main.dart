@@ -11,6 +11,7 @@ import 'Pages/myOrg.dart';
 import 'Pages/organization.dart';
 import 'Pages/event_details_screen.dart';
 import 'Pages/addresses_list_screen.dart';
+import 'pages/organization_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         //HomeScreen.name: (context) => HomeScreen(),
         //LoginScreen.name: (context) => const LoginScreen(),
         Home.name: (context) => Home(),
+        OrganizationScreen.name: (context) => OrganizationScreen(),
         Organization.name: (context) => Organization(),
         myOrg.name: (context) => myOrg(),
         MakeOrg.name: (context) => MakeOrg(),

@@ -11,32 +11,38 @@ class myOrg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('home screen'),
-        ),
-        body: ListView.separated(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundColor: const Color(0xff764abc),
-                child: Text(items[index]),
-              ),
-              title: Text('org ${items[index + 1]}'),
-              subtitle: const Text(
-                'this is a really long description for the organization',
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
-              ),
-              trailing: const Icon(Icons.info_outline),
-              onTap: () {
-                Navigator.pushNamed(context, '/makeOrg_screen');
-              },
-            );
-          },
-          separatorBuilder: (context, index) {
-            return const Divider();
-          },
-        ));
+      appBar: AppBar(
+        title: const Text('My Organizations'),
+      ),
+      body: ListView.separated(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: CircleAvatar(
+              backgroundColor: const Color(0xff764abc),
+              child: Text(items[index]),
+            ),
+            title: Text('org ${items[index + 1]}'),
+            subtitle: const Text(
+              'this is a really long description for the organization',
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+            ),
+            trailing: const Icon(Icons.info_outline),
+            onTap: () {},
+          );
+        },
+        separatorBuilder: (context, index) {
+          return const Divider();
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/makeOrg_screen');
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
