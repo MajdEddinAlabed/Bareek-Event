@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class AddressesListScreen extends StatefulWidget {
   static String name = '/addresses_list_screen';
   const AddressesListScreen({Key? key}) : super(key: key);
@@ -17,6 +18,8 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
 
   @override
   void initState() {
+    showCheckboxes = false;
+    editingCardIndex = null;
     super.initState();
     isSelected = List<bool>.generate(count, (int index) => false);
   }
@@ -46,17 +49,6 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
       appBar: AppBar(
         title: Text(pageTitle),
         actions: [
-          if (showCheckboxes || editingCardIndex != null)
-            IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: () {
-                setState(() {
-                  showCheckboxes = false;
-                  editingCardIndex = null;
-                  isSelected = List<bool>.generate(count, (int index) => false);
-                });
-              },
-            ),
           IconButton(
             icon: const Icon(Icons.more_vert),
             onPressed: () {
@@ -151,6 +143,18 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
                       );
                     },
                   ),
+                  if (showCheckboxes || editingCardIndex != null)
+                    IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        setState(() {
+                          showCheckboxes = false;
+                          editingCardIndex = null;
+                          isSelected =
+                              List<bool>.generate(count, (int index) => false);
+                        });
+                      },
+                    ),
                 ],
               ),
             ),
@@ -203,4 +207,7 @@ class _AddressesListScreenState extends State<AddressesListScreen> {
       },
     );
   }
+
+
+
 }

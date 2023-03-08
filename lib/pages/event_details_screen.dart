@@ -19,6 +19,8 @@ class EventDetailPageState extends State<EventDetailsScreen>
     '30 min',
     '1 hour',
   ];
+  late String selectedValue;
+  bool isButtonDisabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +35,6 @@ class EventDetailPageState extends State<EventDetailsScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  // decoration: const BoxDecoration(
-                  //   gradient: LinearGradient(
-                  //     colors: [Color.fromARGB(20, 33, 149, 243), Color.fromARGB(20, 255, 255, 255)],
-                  //     begin: Alignment.topCenter,
-                  //     end: Alignment.bottomCenter,
-                  //   ),
-                  // ),
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +124,7 @@ class EventDetailPageState extends State<EventDetailsScreen>
           ],
         ),
         const Spacer(),
-        buildReminder(),
+        Container(child: isButtonDisabled ? buildReminder2() : const Text(''))
       ],
     );
   }
@@ -179,10 +174,6 @@ class EventDetailPageState extends State<EventDetailsScreen>
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
             SizedBox(height: 4),
-            // Text(
-            //   "Organizer: Majd Eddin",
-            //   style: TextStyle(color: Colors.grey, fontSize: 14),
-            // ),
           ],
         ),
         const Spacer(),
@@ -236,7 +227,33 @@ class EventDetailPageState extends State<EventDetailsScreen>
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           foregroundColor: Theme.of(context).primaryColor,
         ),
-        onPressed: () {},
+        onPressed: isButtonDisabled
+            ? null
+            : () {
+                setState(() {
+                  isButtonDisabled = true;
+                });
+                showDialog(
+                  context: context,
+                  builder: ((context) {
+                    return AlertDialog(
+                      title: const Text("Set Reminder"),
+                      content: buildReminder(),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              dropDownValue = selectedValue;
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Save"),
+                        ),
+                      ],
+                    );
+                  }),
+                );
+              },
         child: Text(
           "Enroll",
           style: const TextStyle(
@@ -254,7 +271,60 @@ class EventDetailPageState extends State<EventDetailsScreen>
 
   Widget buildReminder() {
     return Container(
-      padding: const EdgeInsets.all(2),
+      decoration: const ShapeDecoration(
+        shape: StadiumBorder(),
+        color: Color.fromRGBO(240, 234, 248, 1),
+      ),
+      child: Row(
+        children: <Widget>[
+          const SizedBox(width: 37),
+          const Text(
+            "Add Reminder ",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            ),
+          ),
+          SizedBox(
+              width: 65,
+              child: StatefulBuilder(
+                builder: (context, setState) {
+                  return DropdownButton(
+                    underline: const InputDecorator(
+                      decoration: InputDecoration(border: InputBorder.none),
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    value: dropDownValue,
+                    alignment: const AlignmentDirectional(0.5, 1),
+                    items: items.map((String items) {
+                      return DropdownMenuItem(
+                        alignment: Alignment.center,
+                        value: items,
+                        child: Text(
+                          items,
+                          style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 12,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        dropDownValue = newValue!;
+                      });
+                    },
+                  );
+                },
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget buildReminder2() {
+    return Container(
       decoration: const ShapeDecoration(
         shape: StadiumBorder(),
         color: Color.fromRGBO(240, 234, 248, 1),
@@ -270,59 +340,35 @@ class EventDetailPageState extends State<EventDetailsScreen>
               fontSize: 14,
             ),
           ),
-          // DropdownButton2(
-          //   buttonWidth: 73,
-          //   dropdownDecoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(10),
-          //   ),
-          //   dropdownElevation: 3,
-          //   value: dropDownValue,
-          //   items: items.map(
-          //     (String items) {
-          //       return DropdownMenuItem(
-          //         value: items,
-          //         child: Text(
-          //           items,
-          //           style: const TextStyle(
-          //             color: Colors.blue,
-          //             fontSize: 12,
-          //           ),
-          //         ),
-          //       );
-          //     },
-          //   ).toList(),
-          //   onChanged: (String? newValue) {
-          //     setState(
-          //       () {
-          //         dropDownValue = newValue!;
-          //       },
-          //     );
-          //   },
-          // )
-          DropdownButton(
-            underline: const InputDecorator(
-              decoration: InputDecoration(border: InputBorder.none),
-            ),
-            borderRadius: BorderRadius.circular(12),
-            value: dropDownValue,
-            alignment: const AlignmentDirectional(0.5, 1),
-            items: items.map((String items) {
-              return DropdownMenuItem(
-                alignment: Alignment.center,
-                value: items,
-                child: Text(
-                  items,
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    fontSize: 12,
-                  ),
+          StatefulBuilder(
+            builder: (context, setState) {
+              return DropdownButton(
+                underline: const InputDecorator(
+                  decoration: InputDecoration(border: InputBorder.none),
                 ),
+                borderRadius: BorderRadius.circular(12),
+                value: dropDownValue,
+                alignment: const AlignmentDirectional(0.5, 1),
+                items: items.map((String items) {
+                  return DropdownMenuItem(
+                    alignment: Alignment.center,
+                    value: items,
+                    child: Text(
+                      items,
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontSize: 12,
+                      ),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    dropDownValue = newValue!;
+                    selectedValue = newValue;
+                  });
+                },
               );
-            }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                dropDownValue = newValue!;
-              });
             },
           ),
         ],
