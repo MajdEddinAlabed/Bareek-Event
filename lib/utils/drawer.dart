@@ -1,4 +1,4 @@
-import 'package:event_app/Pages/home_page.dart';
+import 'package:event_app/Pages/majd_pages.dart';
 import 'package:flutter/material.dart';
 
 class DrawerClass extends StatelessWidget {
