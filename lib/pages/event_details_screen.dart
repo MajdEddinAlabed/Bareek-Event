@@ -23,28 +23,28 @@ class EventDetailPageState extends State<EventDetailsScreen>
   ];
   late String selectedValue;
   bool isButtonDisabled = false;
-  // bool isExpanded = false;
-  // late AnimationController controller;
-  // Animation<double>? animation;
+  bool isExpanded = false;
+  late AnimationController controller;
+  late Animation<double> animation;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   controller = AnimationController(
-  //     duration: const Duration(seconds: 1),
-  //     vsync: this,
-  //   );
-  //   animation = Tween<double>(begin: 0.5, end: 1).animate(CurvedAnimation(
-  //     parent: controller,
-  //     curve: Curves.easeInOut,
-  //   ));
-  // }
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+    animation = Tween<double>(begin: 0.5, end: 1).animate(CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeInOut,
+    ));
+  }
 
-  // @override
-  // void dispose() {
-  //   controller.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,69 +153,69 @@ class EventDetailPageState extends State<EventDetailsScreen>
     );
   }
 
-  // Widget buildAboutEvent() {
-  //   return Column(
-  //     children: [
-  //       SizeTransition(
-  //         sizeFactor: animation!,
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(3),
-  //           child: Text(
-  //             'Flutter is Googles mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase.',
-  //             maxLines: isExpanded ? null : 1,
-  //             overflow: TextOverflow.fade,
-  //           ),
-  //         ),
-  //       ),
-  //       isExpanded
-  //           ? TextButton.icon(
-  //               icon: const Icon(Icons.arrow_upward),
-  //               label: const Text('Read less'),
-  //               onPressed: () {
-  //                 setState(() => isExpanded = false);
-  //                 controller.reverse();
-  //               })
-  //           : TextButton.icon(
-  //               icon: const Icon(Icons.arrow_downward),
-  //               label: const Text('Read more'),
-  //               onPressed: () {
-  //                 setState(() => isExpanded = true);
-  //                 controller.forward();
-  //               })
-  //     ],
-  //   );
-  // }
-
-    Widget buildAboutEvent() {
+  Widget buildAboutEvent() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        Text("About",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold)),
-        SizedBox(),
-        ReadMoreText(
-         text:
-              'Hello this is the description of this event that shows you what is the event is about Hello this is the description of this event that shows you what is the event is about',
-              style: TextStyle(color: Colors.grey, fontSize: 14),
+      children: [
+        SizeTransition(
+          sizeFactor: animation,
+          child: Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              'Flutter is Googles mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase.',
+              maxLines: isExpanded ? null : 1,
+              overflow: TextOverflow.fade,
+            ),
+          ),
         ),
-        SizedBox(
-          height: 8,
-        ),
-        // InkWell(
-        //   child: Text(
-        //     "Read more...",
-        //     style: TextStyle(
-        //         color: Theme.of(context).primaryColor,
-        //         decoration: TextDecoration.underline),
-        //   ),
-        //   onTap: () {},
-        // ),
+        isExpanded
+            ? TextButton.icon(
+                icon: const Icon(Icons.arrow_upward),
+                label: const Text('Read less'),
+                onPressed: () {
+                  setState(() => isExpanded = false);
+                  controller.reverse();
+                })
+            : TextButton.icon(
+                icon: const Icon(Icons.arrow_downward),
+                label: const Text('Read more'),
+                onPressed: () {
+                  setState(() => isExpanded = true);
+                  controller.forward();
+                })
       ],
     );
   }
+
+  //   Widget buildAboutEvent() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: const <Widget>[
+  //       Text("About",
+  //           style: TextStyle(
+  //               color: Colors.black,
+  //               fontSize: 24,
+  //               fontWeight: FontWeight.bold)),
+  //       SizedBox(),
+  //       ReadMoreText(
+  //        text:
+  //             'Hello this is the description of this event that shows you what is the event is about Hello this is the description of this event that shows you what is the event is about',
+  //             style: TextStyle(color: Colors.grey, fontSize: 14),
+  //       ),
+  //       SizedBox(
+  //         height: 8,
+  //       ),
+  //       InkWell(
+  //         child: Text(
+  //           "Read more...",
+  //           style: TextStyle(
+  //               color: Theme.of(context).primaryColor,
+  //               decoration: TextDecoration.underline),
+  //         ),
+  //         onTap: () {},
+  //       ),
+  //     ],
+  //   );
+  // }
 
 
   Widget buildOrganizeInfo() {
