@@ -1,4 +1,3 @@
-import 'package:event_app/utils/readMore.dart';
 import 'package:flutter/material.dart';
 
 class EventDetailsScreen extends StatefulWidget {
