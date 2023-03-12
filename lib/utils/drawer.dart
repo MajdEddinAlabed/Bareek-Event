@@ -1,6 +1,8 @@
 import 'package:event_app/Pages/majd_pages.dart';
 import 'package:flutter/material.dart';
 
+import '../Pages/user_profile.dart';
+
 class DrawerClass extends StatelessWidget {
   const DrawerClass({Key? key}) : super(key: key);
 
@@ -30,7 +32,9 @@ class DrawerClass extends StatelessWidget {
         ),
         color: Colors.blue.shade700,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            UserProfile();
+          },
           child: Container(
             padding: EdgeInsets.only(
               top: 24 + MediaQuery.of(context).padding.top,
