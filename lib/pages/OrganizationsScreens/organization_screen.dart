@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class OrganizationScreen extends StatefulWidget {
-  static String name = '/orginfo_screen';
+  static String name = '/organization_screen';
 
   const OrganizationScreen({super.key});
   @override

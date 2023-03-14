@@ -1,50 +1,123 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 class UserProfile extends StatefulWidget {
   static String name = '/userProfile';
 
   const UserProfile({super.key});
+
   @override
-  _UserProfileState createState() => _UserProfileState();
+  State<UserProfile> createState() => _UserProfileState();
 }
 
 class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('User Profile'),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 20),
-          CircleAvatar(
-            child: Text('m'),
-          ),
-          SizedBox(height: 20),
-          Text(
-            'John Doe',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage("https://i.imgur.com/MYUhyas.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: IconButton(
+                    icon: const Icon(Icons.edit),
+                    color: Colors.white,
+                    onPressed: () {},
+                  ),
+                ),
+                const Positioned(
+                  bottom: 10,
+                  left: 16,
+                  width: 80,
+                  height: 80,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage:
+                        NetworkImage("https://i.imgur.com/17eGa6B.jpg"),
+                  ),
+                ),
+              ],
             ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'johndoe@example.com',
-            style: TextStyle(
-              fontSize: 16,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Text(
+                'John Doe',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            child: Text('Edit Profile'),
-            onPressed: () {},
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+              child: Text(
+                'johndoe@example.com',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Text(
+                'About Me',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non libero euismod, sagittis purus vel, vulputate nunc. Aliquam eu urna id quam consectetur eleifend. Maecenas a luctus massa, ac lobortis urna.',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Expanded(
+            //   child: GridView.count(
+            //     crossAxisCount: 3,
+            //     padding: EdgeInsets.all(16),
+            //     children: [
+            //       Image.network('https://i.imgur.com/1TFtCxW.jpg'),
+            //       Image.network('https://i.imgur.com/4BmdHQQ.jpg'),
+            //       Image.network('https://i.imgur.com/xkgoze1.jpg'),
+            //       Image.network('https://i.imgur.com/g0mPo5X.jpg'),
+            //       Image.network('https://i.imgur.com/uYXVYV0.jpg'),
+            //       Image.network('https://i.imgur.com/FUJPOwQ.jpg'),
+            //     ],
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

@@ -216,28 +216,48 @@ class EventDetailPageState extends State<EventDetailsScreen>
   //   );
   // }
 
-
   Widget buildOrganizeInfo() {
     return Row(
       children: <Widget>[
-        const CircleAvatar(
-          child: Text('H'),
+        CircleAvatar(
+          child: TextButton(
+            child: const Text('H',style: TextStyle(color: Colors.white),),
+            onPressed: () =>
+                Navigator.of(context).pushNamed('/organization_screen'),
+          ),
         ),
         const SizedBox(width: 16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-            Text('High Academy',
+          children: <Widget>[
+            InkWell(
+              onTap: () => Navigator.of(context).pushNamed('/organization_screen'),
+              child: const Text(
+                'High Academy',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold)),
-            SizedBox(height: 4),
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 2),
+            InkWell(
+              onTap: () => Navigator.of(context).pushNamed('/userProfile'),
+              child: const Text(
+                'John Doe',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Color.fromARGB(255, 57, 59, 61),
+                ),
+              ),
+            ),
           ],
         ),
         const Spacer(),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed('/organization_screen');
+          },
           style: TextButton.styleFrom(
             foregroundColor: const Color.fromRGBO(240, 234, 248, 1),
           ),
@@ -251,7 +271,7 @@ class EventDetailPageState extends State<EventDetailsScreen>
                   ..style = PaintingStyle.stroke
                   ..strokeJoin = StrokeJoin.round),
           ),
-        )
+        ),
       ],
     );
   }
