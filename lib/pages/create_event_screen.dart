@@ -22,6 +22,7 @@ class CreateEventScreenState extends State<CreateEventScreen> {
   final _eventNameFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   final List<String> eventAddress = ['Syria', 'Egypt', 'Japan', 'Turkey'];
+  final now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -174,14 +175,19 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                                   ),
                                 ),
                                 onPressed: () async {
-                                  final time = await showTimePicker(
+                                  final time = await showDatePicker(
                                     context: context,
-                                    helpText: 'SELECT START TIME',
-                                    initialTime: TimeOfDay.now(),
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate:
+                                        DateTime.now().add(Duration(days: 365)),
+                                    selectableDayPredicate: (DateTime date) {
+                                      return date.isAfter(DateTime.now());
+                                    },
                                   );
                                   if (time != null) {
                                     setState(() {
-                                      _startEventTime = time;
+                                      _startEventTime = time as TimeOfDay;
                                     });
                                   }
                                 },
