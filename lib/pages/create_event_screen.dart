@@ -17,12 +17,11 @@ class CreateEventScreenState extends State<CreateEventScreen> {
   late String eventName;
   late String eventLocation;
   late DateTime _eventDate = DateTime.now();
-  late TimeOfDay _startEventTime = TimeOfDay.now();
-  late TimeOfDay _endEventTime = TimeOfDay.now();
   final _eventNameFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   final List<String> eventAddress = ['Syria', 'Egypt', 'Japan', 'Turkey'];
-  final now = DateTime.now();
+  TimeOfDay _startTime = TimeOfDay.now();
+  TimeOfDay _endTime = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +42,7 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: ListView(
                     children: <Widget>[
+                      //Select Event Title & Address.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,6 +118,7 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                           ),
                         ],
                       ),
+                      //Select Day for the Event.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -150,94 +151,39 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                           ),
                         ],
                       ),
+                      //Select Start & End Time for the Event.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                'Start Time',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
+                          //Start time.
+                          Column(
+                            children: [
+                              //Button to call start timePicker.
+                              ElevatedButton(
+                                onPressed: () => _selectStartTime(context),
+                                child: const Text('Select start time'),
                               ),
-                              TextButton(
-                                child: Text(
-                                  _startEventTime == null
-                                      ? 'Choose Time'
-                                      : _startEventTime.format(context),
-                                  style: TextStyle(
-                                    color: _startEventTime == null
-                                        ? null
-                                        : Colors.black,
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  final time = await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime.now(),
-                                    lastDate:
-                                        DateTime.now().add(Duration(days: 365)),
-                                    selectableDayPredicate: (DateTime date) {
-                                      return date.isAfter(DateTime.now());
-                                    },
-                                  );
-                                  if (time != null) {
-                                    setState(() {
-                                      _startEventTime = time as TimeOfDay;
-                                    });
-                                  }
-                                },
-                              ),
+                              //Show selected start time.
+                              Text('Start time: ${_startTime.format(context)}'),
                             ],
                           ),
-                          const SizedBox(width: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                'End Time',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
+                          //End Time.
+                          Column(
+                            children: [
+                              //Button to call end timePicker.
+                              ElevatedButton(
+                                onPressed: () => _selectEndTime(context),
+                                child: const Text('Select end time'),
                               ),
-                              TextButton(
-                                child: Text(
-                                  _endEventTime == null
-                                      ? 'Choose Time'
-                                      : _endEventTime.format(context),
-                                  style: TextStyle(
-                                    color: _endEventTime == null
-                                        ? null
-                                        : Colors.black,
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  final time = await showTimePicker(
-                                    context: context,
-                                    helpText: 'SELECT END TIME',
-                                    initialTime: TimeOfDay.now(),
-                                    //   startHour: _startEventTime.hour,
-                                    //   startMinute: _startEventTime.minute + 1,
-                                    // ).then(
-                                    //   (time) => setState(
-                                    //     () => _endEventTime = time?.format(context),
-                                    //   ),
-                                  );
-                                  if (time != null) {
-                                    setState(() {
-                                      _endEventTime = time;
-                                    });
-                                  }
-                                },
-                              ),
+                              //Show selected end time.
+                              Text('End time: ${_endTime.format(context)}'),
                             ],
                           ),
                         ],
                       ),
+                      const SizedBox(height: 10),
+                      //Event Description Field
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -265,6 +211,7 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
+                      //Two buttons to select if The event Private or Public
                       Column(
                         children: <Widget>[
                           Row(
@@ -312,6 +259,7 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                 ),
               ),
             ),
+            //Confirm button.
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 16,
@@ -342,5 +290,46 @@ class CreateEventScreenState extends State<CreateEventScreen> {
         ),
       ),
     );
+  }
+
+  //Only pick time after current time function.
+  Future<void> _selectStartTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: _startTime,
+      helpText: 'Select start time',
+    );
+    if (picked != null) {
+      final now = DateTime.now();
+      final selectedDateTime =
+          DateTime(now.year, now.month, now.day, picked.hour, picked.minute);
+      final isSameDay = now.day == selectedDateTime.day;
+      if (isSameDay && selectedDateTime.isBefore(now)) {
+        // The selected time is on the same day as the current time and is before the current time
+        // Display an error message to the user
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Please select a time after the current time')),
+        );
+      } else {
+        setState(() {
+          _startTime = picked;
+        });
+      }
+    }
+  }
+
+  //Only pick time after start time function.
+  Future<void> _selectEndTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: _endTime,
+      helpText: 'Select end time',
+    );
+    if (picked != null) {
+      setState(() {
+        _endTime = picked;
+      });
+    }
   }
 }
