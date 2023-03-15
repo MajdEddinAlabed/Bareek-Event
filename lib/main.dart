@@ -11,6 +11,7 @@ import 'Pages/OrganizationsScreens/makeOrg.dart';
 import 'Pages/OrganizationsScreens/myOrg.dart';
 import 'Pages/event_details_screen.dart';
 import 'Pages/addresses_list_screen.dart';
+import 'Pages/test.dart';
 import 'pages/OrganizationsScreens/organization_screen.dart';
 
 void main() {
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         AddressesListScreen.name: (context) => AddressesListScreen(),
         MyHomePage.name: (context) => MyHomePage(title: "Majd"),
         UserProfile.name: (context) => UserProfile(),
+        Test.name: (context) => Test(),
       },
     );
   }

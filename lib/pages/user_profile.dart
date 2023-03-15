@@ -102,20 +102,6 @@ class _UserProfileState extends State<UserProfile> {
               ),
             ),
             const SizedBox(height: 20),
-            // Expanded(
-            //   child: GridView.count(
-            //     crossAxisCount: 3,
-            //     padding: EdgeInsets.all(16),
-            //     children: [
-            //       Image.network('https://i.imgur.com/1TFtCxW.jpg'),
-            //       Image.network('https://i.imgur.com/4BmdHQQ.jpg'),
-            //       Image.network('https://i.imgur.com/xkgoze1.jpg'),
-            //       Image.network('https://i.imgur.com/g0mPo5X.jpg'),
-            //       Image.network('https://i.imgur.com/uYXVYV0.jpg'),
-            //       Image.network('https://i.imgur.com/FUJPOwQ.jpg'),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

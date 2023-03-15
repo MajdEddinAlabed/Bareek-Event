@@ -33,7 +33,7 @@ class DrawerClass extends StatelessWidget {
         color: Colors.blue.shade700,
         child: InkWell(
           onTap: () {
-            UserProfile();
+            Navigator.pushNamed(context, '/userProfile');
           },
           child: Container(
             padding: EdgeInsets.only(

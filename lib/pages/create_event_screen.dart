@@ -111,12 +111,13 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                                   },
                                   items: eventAddress
                                       .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
+                                    (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    },
+                                  ).toList(),
                                 ),
                               ),
                             ),
@@ -125,34 +126,24 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                         //Select Day for the Event.
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            const Text(
-                              'Event Date',
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
+                          //crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => _selectDate(),
+                              child: const Text('Select date'),
                             ),
-                            TextButton(
-                              child: Text(
-                                _eventDate == null
-                                    ? 'Choose Date'
-                                    : '${_eventDate.toLocal()}'.split(' ')[0],
-                                style: TextStyle(
-                                  color:
-                                      _eventDate == null ? null : Colors.black,
-                                ),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    style: BorderStyle.solid,
+                                    color: Colors.green),
+                                    borderRadius: BorderRadius.circular(10)
                               ),
-                              onPressed: () async {
-                                final date = await showDatePicker(
-                                  context: context,
-                                  initialDate: _eventDate,
-                                  firstDate: DateTime.now(),
-                                  lastDate: DateTime(2050),
-                                );
-                                if (date != null) {
-                                  setState(() => _eventDate = date);
-                                }
-                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                    "Date: ${_eventDate.month}/${_eventDate.day}/${_eventDate.year}"),
+                              ),
                             ),
                           ],
                         ),
@@ -299,6 +290,19 @@ class CreateEventScreenState extends State<CreateEventScreen> {
     );
   }
 
+  //Only pick date after from now and after.
+  Future<void> _selectDate() async {
+    final date = await showDatePicker(
+      context: context,
+      initialDate: _eventDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2050),
+    );
+    if (date != null) {
+      setState(() => _eventDate = date);
+    }
+  }
+
   //Only pick time after current time function.
   Future<void> _selectStartTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
@@ -313,9 +317,8 @@ class CreateEventScreenState extends State<CreateEventScreen> {
       final isSameDay = now.day == selectedDateTime.day;
       if (isSameDay && selectedDateTime.isBefore(now)) {
         // The selected time is on the same day as the current time and is before the current time
-        // Display an error message to the user
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+        _scaffoldMessengerKey.currentState!.showSnackBar(
+          const SnackBar(
             content: Text('Please select a time after the current time'),
           ),
         );

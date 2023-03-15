@@ -1,5 +1,6 @@
 import 'package:event_app/Pages/addresses_list_screen.dart';
 import 'package:event_app/Pages/create_event_screen.dart';
+import 'package:event_app/Pages/test.dart';
 import 'package:event_app/Pages/user_profile.dart';
 import 'package:event_app/pages/OrganizationsScreens/organization_screen.dart';
 import 'package:event_app/utils/drawer.dart';
@@ -54,6 +55,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.of(context).pushNamed(UserProfile.name);
               },
               child: const Text('user profile screen'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Test.name);
+              },
+              child: const Text('test screen'),
             ),
           ],
         ),
