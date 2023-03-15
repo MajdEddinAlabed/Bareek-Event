@@ -24,6 +24,7 @@ class CreateEventScreenState extends State<CreateEventScreen> {
   TimeOfDay _endTime = TimeOfDay.now();
   final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
+  bool isStartTimePicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -134,11 +135,10 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                    style: BorderStyle.solid,
-                                    color: Colors.green),
-                                    borderRadius: BorderRadius.circular(10)
-                              ),
+                                  border: Border.all(
+                                      style: BorderStyle.solid,
+                                      color: Colors.green),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Text(
@@ -157,11 +157,16 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                               children: [
                                 //Button to call start timePicker.
                                 ElevatedButton(
-                                  onPressed: () => _selectStartTime(context),
+                                  onPressed: () {
+                                    _selectStartTime(context);
+                                    setState(() {
+                                      isStartTimePicked = true;
+                                    });
+                                  },
                                   child: const Text('Select start time'),
                                 ),
                                 //Show selected start time.
-                                Text(
+                                if (isStartTimePicked) Text(
                                     'Start time: ${_startTime.format(context)}'),
                               ],
                             ),
@@ -170,11 +175,14 @@ class CreateEventScreenState extends State<CreateEventScreen> {
                               children: [
                                 //Button to call end timePicker.
                                 ElevatedButton(
-                                  onPressed: () => _selectEndTime(),
+                                  onPressed: isStartTimePicked? () {
+                                    _selectEndTime();
+                                    
+                                  } : null,
                                   child: const Text('Select end time'),
                                 ),
                                 //Show selected end time.
-                                Text('End time: ${_endTime.format(context)}'),
+                                if (isStartTimePicked) Text('End time: ${_endTime.format(context)}'),
                               ],
                             ),
                           ],
