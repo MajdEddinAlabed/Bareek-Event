@@ -9,9 +9,8 @@ class DrawerClass extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Drawer(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
-          ),
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(30), bottomRight: Radius.circular(30)),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -26,9 +25,10 @@ class DrawerClass extends StatelessWidget {
 
   Widget buildHeader(BuildContext context) => Material(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
-          ),
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
         ),
         color: Colors.blue.shade700,
         child: InkWell(

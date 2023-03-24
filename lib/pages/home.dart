@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_escapes, library_private_types_in_public_api
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:event_app/utils/expandable_fab.dart';
 import 'package:flutter/material.dart';
 import '../utils/drawer.dart';
 
@@ -14,7 +15,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final bool _isFABVisible = false;
+  late DateTime _eventDate = DateTime.now();
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +59,43 @@ class _HomeState extends State<Home> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.navigation),
+      floatingActionButton: ExpandableFab(
+        distance: 120,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                _isPressed = !_isPressed;
+              });
+            },
+            backgroundColor: _isPressed ? Colors.blue : Colors.green,
+            child: Icon(Icons.person),
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.blue,
+            onPressed: _selectDate,
+            child: Icon(Icons.calendar_month),
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.blue,
+            child: Icon(Icons.menu_rounded),
+            onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+          ),
+        ],
       ),
     );
+  }
+
+  Future<void> _selectDate() async {
+    final date = await showDatePicker(
+      context: context,
+      initialDate: _eventDate,
+      firstDate: DateTime(2022),
+      lastDate: DateTime(2050),
+    );
+    if (date != null) {
+      setState(() => _eventDate = date);
+    }
   }
 }
 

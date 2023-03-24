@@ -26,9 +26,8 @@ class MyApp extends StatelessWidget {
       title: 'Bareek Event',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-              primary: Color.fromARGB(255, 57, 24, 100),
-              secondary: Color.fromARGB(255, 102, 45, 139))),
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(primary: Colors.blue, secondary: Colors.blue)),
       initialRoute: '/',
       routes: {
         // HomeScreen.name: (context) => HomeScreen(),
